@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+
+		
+	<!-- 开启组件扫描
+	  base-package: 基础包
+
+	      告诉Spring到基础包下扫描所有的java类看类上是不是加了注解：
+	   @Component、@Controller、@Service、@Repository 如果有相应的注解
+	     它就会创建bean存入Spring容器.
+	-->
+	<context:component-scan base-package="org.spring.learning.componentscan" />
+
+	<context:property-placeholder location="org/spring/learning/componentscan/user.properties" />
+
+	<!-- 启用注解解析器 -->
+    <context:annotation-config />
+</beans>

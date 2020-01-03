@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd 
+	   http://activemq.apache.org/schema/core
+	   http://activemq.apache.org/schema/core/activemq-core.xsd
+	   http://www.springframework.org/schema/jms
+	   http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+	<context:property-placeholder
+		location="classpath:org/spring/learning/jms/activemq.properties" />
+
+	<context:component-scan base-package="org.spring.learning.jms" />
+
+	<!--
+	    1、ActiveMQ 工厂 
+	    2、amq命名空间方式
+	    3、默认监听端口61616 
+	    4、默认用户名：admin 密码：admin 
+    -->
+	<amq:connectionFactory id="connectionFactory" 
+		brokerURL="tcp://${activeMQ.host}:${activeMQ.port}"
+		userName="${activeMQ.userName}" 
+		password="${activeMQ.password}" 
+		trustAllPackages="true" />
+		
+	<!--
+    	消息目的地又分为 队列 和 主题 两种：
+    	1、定义消息目的地，可以是队列或者主题两种方式 
+    	2、借助physicalName属性指定消息通道的名称
+    	
+    	queue 队列  (点对点模式: 在点对点模式中，每个消息只有一个发送者和一个接受者)
+    	尽管消息队列中的每个消息只有一个接收者，但这并不意味着只能有一个接收者从队列获取消息，可以同时有多个接收者从队列获取消息
+
+    	topic 发布/订阅模式(在发布/订阅模式中，消息是被发送到topic中的)
+    	就像queue一样，很多接收者可以监听同一个topic，但是与queue每个消息只传递给一个接收者不同，订阅了同一个topic的所有接收者都会收到消息的拷贝
+    -->
+	<amq:queue id="queueDestination" physicalName="queueName" />
+	<amq:topic id="topicDestination" physicalName="topicName" />
+	
+	<!--
+    	1、jmsTemplate 
+    	2、defaultDestination 定义了默认的消息目的地 
+    	3、messageConverter 消息转换器 
+    -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+		p:connectionFactory-ref="connectionFactory" 
+		p:defaultDestination-ref="queueDestination"
+		p:messageConverter-ref="messageConverter" />
+	
+	<!--MessageConvert-->
+	<bean id="messageConverter" class="org.springframework.jms.support.converter.SimpleMessageConverter" />
+
+	<!--消息监听器-->
+	<jms:listener-container connection-factory="connectionFactory">
+		<jms:listener destination="queueName" ref="queueMessageHandler" method="handle" />
+		<jms:listener destination="topicName" ref="topicMessageHandler" method="handle" />
+		<jms:listener destination="queueList" ref="queueMessageHandler" method="handle2" />
+
+        <!--利用jms监听器导出消息服务-->
+		<jms:listener destination="sparta" ref="jmsServer" />
+	</jms:listener-container>
+	
+	<bean id="jmsServer" class="org.springframework.jms.remoting.JmsInvokerServiceExporter"
+		p:serviceInterface="org.spring.learning.jms.rpc.JmsServer" 
+		p:service-ref="jmsServerImpl" />
+
+</beans>

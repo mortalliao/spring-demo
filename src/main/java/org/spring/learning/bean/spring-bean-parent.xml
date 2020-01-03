@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       	 		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+  	<!-- 定义父Bean abstract: 抽像的Bean(父Bean) -->
+	<bean id="parentBean" abstract="true" p:name="张三" p:phone="1368888888" p:age="20" />
+	
+	<!-- 子Bean需要继承父Bean   parent: 子Bean -->
+	<bean id="sysUser" class="org.spring.learning.bean.domain.SysUser" parent="parentBean" p:name="李四" />
+
+	<bean id="account" class="org.spring.learning.bean.domain.Account" parent="parentBean" />
+
+</beans>

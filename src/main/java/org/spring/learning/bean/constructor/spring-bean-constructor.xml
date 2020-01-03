@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       	 		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="user1" class="org.spring.learning.bean.constructor.User">
+       		<!-- <constructor-arg>: 指定构造中的第一个参数 -->
+		<constructor-arg>
+     		<!-- 标量类型: 8个基本数据类型 + 包装类 + String 
+     			type: 指定value的数据类型. 如果是（包装类 String）类型就需要指定包名 
+     		-->
+			<value type="java.lang.String">张三</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user2" class="org.spring.learning.bean.constructor.User">
+		<!-- <constructor-arg>: 指定构造中的第一个参数  
+ 				index:指定构造中的第一个参数的引索号 -->
+		<constructor-arg index="0">
+       			<!-- 标量类型: 8个基本数据类型 + 包装类 + String 
+       				type: 指定value的数据类型. 如果是（包装类 String）类型就需要指定包名 
+       			-->
+			<value>李阳</value>
+		</constructor-arg>
+		
+		<!-- <constructor-arg>: 指定构造中的第二个参数 -->
+		<constructor-arg index="1">
+       			<!-- 标量类型: 8个基本数据类型 + 包装类 + String 
+       				type: 指定value的数据类型. 如果是（包装类 String）类型就需要指定包名 
+       			-->
+			<value>40</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user3" class="org.spring.learning.bean.constructor.User">
+		<!-- 指定构造器中第一个参数 String[] -->
+		<constructor-arg>
+      		<!-- String[] value-type:指定数组中元素的类型 -->
+			<array value-type="java.lang.String">
+				<value>广州市</value>
+				<value>深圳市</value>
+				<value>东莞市</value>
+				<value>惠州市</value>
+			</array>
+		</constructor-arg>
+ 		
+ 		<!-- 指定构造器中第二个参数 int[] -->
+		<constructor-arg>
+      		<!-- int[] value-type:指定数组中元素的类型 -->
+			<array value-type="int">
+				<value>100</value>
+				<value>200</value>
+				<value>300</value>
+				<value>400</value>
+			</array>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user4" class="org.spring.learning.bean.constructor.User">
+		<!-- 指定构造器中第一个参数 List<String> -->
+		<constructor-arg>
+      		<!-- List<String> value-type:指定集合中元素的类型 -->
+			<list value-type="java.lang.String">
+				<value>广州市</value>
+				<value>深圳市</value>
+				<value>东莞市</value>
+				<value>惠州市</value>
+			</list>
+		</constructor-arg>
+
+      	<!-- 指定构造器中第二个参数 List<Integer> -->
+		<constructor-arg>
+      		<!-- List<Integer> value-type:指定集合中元素的类型 -->
+			<list value-type="int">
+				<value>100</value>
+				<value>200</value>
+				<value>300</value>
+				<value>400</value>
+			</list>
+		</constructor-arg>
+	</bean>
+      
+    <!-- List<String[]>构造器 -->
+	<bean id="user5" class="org.spring.learning.bean.constructor.User">
+		<constructor-arg>
+      		<!-- List<String[]> -->
+			<list>
+				<array>
+					<value>aaaaaa11</value>
+					<value>aaaaaa22</value>
+				</array>
+				<array>
+					<value>bbbbb11</value>
+					<value>bbbbb22</value>
+				</array>
+				<array>
+					<value>ccccc11</value>
+					<value>ccccc22</value>
+				</array>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user6" class="org.spring.learning.bean.constructor.User">
+      	<!-- 指定构造器中第一个参数 Set<String> -->
+		<constructor-arg>
+      		<!-- Set<String> value-type:指定集合中元素的类型 -->
+			<set value-type="java.lang.String">
+				<value>广州市</value>
+				<value>深圳市</value>
+				<value>东莞市</value>
+				<value>惠州市</value>
+			</set>
+		</constructor-arg>
+      	
+      	<!-- 指定构造器中第二个参数  List<Set<String>> -->
+		<constructor-arg>
+			<list>
+				<set>
+					<value>1111</value>
+					<value>2222</value>
+				</set>
+				<set>
+					<value>333</value>
+					<value>444</value>
+				</set>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user7" class="org.spring.learning.bean.constructor.User">
+		<!-- 指定构造器中第一个参数 Map<String, String> -->
+		<constructor-arg>
+     		<!--  Map<String, String>
+     			key-type : 指定Map集合中key的数据类型
+     			value-type:指定Map集合中value的数据类型 
+     		-->
+			<map key-type="java.lang.String" value-type="java.lang.String">
+				<entry key="001" value="广州市" />
+				<entry key="002" value="深圳市" />
+			</map>
+		</constructor-arg>
+
+		<!-- 指定构造器中第二个参数 Map<String, List<String>> -->
+		<constructor-arg>
+			<map>
+				<entry key="name">
+      				<!-- 指定Map集合的value -->
+					<list>
+						<value>李小一</value>
+						<value>李小二</value>
+					</list>
+				</entry>
+				<entry key="age">
+      				<!-- 指定Map集合的value -->
+					<list>
+						<value>20</value>
+						<value>19</value>
+					</list>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user8" class="org.spring.learning.bean.constructor.User">
+      	<!-- 指定构造器中第一个参数  Properties-->
+		<constructor-arg>
+      		<!-- Properties
+      			value-type:指定Properties集合中value的数据类型 
+      		-->
+			<props value-type="java.lang.String">
+				<prop key="001">广州市</prop>
+				<prop key="002">深圳市</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user9" class="org.spring.learning.bean.constructor.User">
+      	<!-- 指定构造器中第一个参数  Date-->
+		<constructor-arg>
+     		<!-- 嵌套Bean -->
+     		<!-- <bean class="java.util.Date"/> -->
+     		<!-- <ref/>引用容器中的bean实例  bean="容器中bean的id值" -->
+			<ref bean="date" />
+		</constructor-arg>
+
+		<constructor-arg>
+      		<!-- <idref/>引用bean的id是一个字符串 -->
+      		<!-- <idref bean="date"/> -->
+      		<!-- <null/>空值 -->
+			<null></null>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user10" class="org.spring.learning.bean.constructor.User">
+       	<!-- <constructor-arg>: 指定构造中的第一个参数   -->
+		<constructor-arg value="张三" />
+       	<!-- <constructor-arg>: 指定构造中的第二个参数 -->
+		<constructor-arg type="int" value="40" />
+       	<!-- <constructor-arg>: 指定构造中的第三个参数 -->
+		<constructor-arg ref="date" />
+	</bean>
+
+	<bean id="user11" class="org.spring.learning.bean.constructor.User" c:_0="张三" c:_1="18" c:_2-ref="date" />
+
+    <!--  配置bean -->
+	<bean id="date" class="java.util.Date" />
+
+</beans>

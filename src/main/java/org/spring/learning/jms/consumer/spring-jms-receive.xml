@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd 
+	   http://activemq.apache.org/schema/core
+	   http://activemq.apache.org/schema/core/activemq-core.xsd
+	   http://www.springframework.org/schema/jms
+	   http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+	<context:property-placeholder
+		location="classpath:org/spring/learning/jms/activemq.properties" />
+
+	<context:component-scan base-package="org.spring.learning.jms" />
+
+	<!-- connectionFactory -->
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+		p:brokerURL="tcp://${activeMQ.host}:${activeMQ.port}"
+		p:userName="${activeMQ.userName}" 
+		p:password="${activeMQ.password}" 
+		p:trustAllPackages="true" /> 
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+		p:connectionFactory-ref="connectionFactory" 
+		p:defaultDestination-ref="defaultDestination"
+		p:messageConverter-ref="messageConverter" />
+	
+	<!--MessageConvert-->
+	<bean id="messageConverter" class="org.springframework.jms.support.converter.SimpleMessageConverter" />
+
+    <!-- queue -->
+    <bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">  
+        <constructor-arg value="defaultDestination"/>  
+    </bean>
+
+</beans>

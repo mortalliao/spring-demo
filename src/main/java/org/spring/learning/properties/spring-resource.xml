@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       	 		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+      
+       <!-- 配置bean
+           id: bean的唯一标符识
+           class: 指定具体的类
+       -->
+	<bean id="resourceService" class="org.spring.learning.properties.ResourceService"
+		p:resource="org/spring/learning/properties/jdbc.properties" />
+
+</beans>

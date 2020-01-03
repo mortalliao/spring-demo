@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       	 		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<!-- 配置bean -->
+	<!-- id: bean的唯一标符识 -->
+	<!-- class: 指定具体的类 -->
+	<!-- lazy-init: 是否延迟初始化bean -->
+	<bean id="testService" class="org.spring.learning.bean.TestService" primary="true" />
+
+	<!-- 第一种方式 -->
+	<!-- <bean id="testService" class="org.spring.learning.bean.TestService"/> -->
+	
+	<!-- 
+		<bean id="testService" class="org.spring.learning.bean.TestService">
+			<constructor-arg ref="userDao"/>
+		</bean>
+	 -->
+
+	<!-- 第二种方式：静态工厂创建Bean -->
+	<!-- factory-method: 工厂方法 -->
+	<bean id="testService1" class="org.spring.learning.bean.MyBeanFactory" factory-method="createUserService1" />
+
+	<!-- 第三种方式：对象工厂创建Bean -->
+	<!-- factory-bean : 引用容器中存在的Bean的id factory-method: 工厂方法 -->
+	<bean id="beanfactory" class="org.spring.learning.bean.MyBeanFactory" />
+
+	<bean id="testService2" factory-bean="beanfactory" factory-method="createUserService2" />
+	
+	<!-- 设值注入 -->
+	<bean id="user" class="org.spring.learning.bean.User">
+      	<!-- setName(String name) 
+      		name : setName方法把前面set去掉，首字母小写
+      	-->
+		<property name="name">
+			<value>张三</value>
+		</property>
+       	
+       	<!-- setAge(int age) -->
+		<property name="age" value="20" />
+		
+       	<!-- setFloats(float[] floats) -->
+		<property name="floats">
+			<array>
+				<value>10.4f</value>
+				<value>19.5f</value>
+			</array>
+		</property>
+       	
+		<!-- setLists(List<String> lists) -->
+		<property name="lists">
+			<list>
+				<value>admin</value>
+				<value>lxh</value>
+			</list>
+		</property>
+       	
+       	<!-- setSets(Set<String> sets)  -->
+		<property name="sets">
+			<set>
+				<value>1111</value>
+				<value>2222</value>
+			</set>
+		</property>
+       	
+		<!-- setMaps(Map<String, String> maps) -->
+		<property name="maps">
+			<map>
+				<entry key="0001" value="李大华" />
+				<entry key="0002" value="李中华" />
+			</map>
+		</property>
+       	
+       	<!-- setProps(Properties props) -->
+		<property name="props">
+			<props>
+				<prop key="name">张小华</prop>
+				<prop key="age">20</prop>
+			</props>
+		</property>
+       	
+       	<!-- setDate(Date date) -->
+		<property name="date">
+       			<!-- <bean class="java.util.Date"/> -->
+       			<!-- <ref bean="date"/> -->
+			<null></null>
+		</property>
+	</bean>
+	
+	<!-- SpEL -->
+	<bean id="user1" class="org.spring.learning.bean.User"
+       		p:name="李四"
+       		p:age="#{date.getYear() * T(java.lang.Math).random()}"
+       		p:floats="#{new float[]{20.5f,40.5f}}"
+       		p:lists="#{{'admin1','admin2'}}"
+       		p:sets="#{{'222222','333333'}}"
+       		p:maps="#{{'name' : '李大华', 'age' : '25'}}"
+       		p:props="#{{'user' : 'root', 'password' : 'root'}}"
+       		p:date="#{new java.util.Date()}"/>
+
+	<bean id="date" class="java.util.Date" />
+</beans>

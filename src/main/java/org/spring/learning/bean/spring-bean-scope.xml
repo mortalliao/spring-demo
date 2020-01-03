@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       	 		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+  	<!-- 配置bean
+           id: bean的唯一标符识
+           class: 指定具体的类
+           scope: 
+              1.singleton单例(存活时间最久，容器存在它就存在，容器关闭，所有的bean都不存)
+              2.prototype不会预初始化,每次都会创建一个新实例.
+              
+              3. request对应Web应用request作用域.(了解)
+			  4. session对应web应用session作用域.(了解)
+       -->
+	<bean id="testService" class="org.spring.learning.bean.TestService" scope="prototype" lazy-init="true"/>
+
+</beans>
