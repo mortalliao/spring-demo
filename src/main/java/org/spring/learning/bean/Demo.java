@@ -26,4 +26,11 @@ public class Demo {
 		TestService testService = context.getBean(TestService.class);
 		testService.info("Hello World");
 	}
+
+	@Test
+	public void testInit() {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"org/spring/learning/bean/spring-bean-lifecycle.xml");
+		InitBean initBean = context.getBean(InitBean.class);
+	}
 }

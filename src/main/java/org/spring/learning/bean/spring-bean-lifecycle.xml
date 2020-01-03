@@ -8,8 +8,14 @@
     	init-method: 初始化方法
     	destroy-method: 消毁方法
      -->
-	<bean id="initDestroyService" class="org.spring.learning.bean.InitDestroyService" init-method="init"
-		destroy-method="close" />
+<!-- 	<bean id="initDestroyService" class="org.spring.learning.bean.InitDestroyService" init-method="init" -->
+<!-- 		destroy-method="close" /> -->
 
+	<!-- 先调用afterPropertieSet()方法，然后再调用init-method中指定的方法  -->
+	<!-- 
+		查看Spring加载bean的源码类AbstractAutowiredCapableBeanFactory
+			invokeInitMethods
+	 -->
+	<bean id="initBean" class="org.spring.learning.bean.InitBean" init-method="init" />
 
 </beans>
