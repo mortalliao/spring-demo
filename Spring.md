@@ -16,7 +16,7 @@ BeanFactory和ApplicationContext有什么区别
 		
 	2. BeanFactroy采用的是延迟加载形式来注入Bean的，即只有在使用到某个Bean时(调用getBean())，才对该Bean进行加载实例化。
 	这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。
-		 ①ApplicationContext，它是在容器启动时，一次性创建了所有的Bean。
+		①ApplicationContext，它是在容器启动时，一次性创建了所有的Bean。
 		这样，在容器启动时，我们就可以发现Spring中存在的配置错误，这样有利于检查所依赖属性是否注入。
 		ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean ,确保当你需要的时候，你就不用等待，因为它们已经创建好了。
 		②相对于基本的BeanFactory，ApplicationContext 唯一的不足是占用内存空间。当应用程序配置Bean较多时，程序启动较慢。
@@ -24,7 +24,7 @@ BeanFactory和ApplicationContext有什么区别
 	3. BeanFactory通常以编程的方式被创建，ApplicationContext还能以声明的方式创建，如使用ContextLoader。
 	
 	4. BeanFactory和ApplicationContext都支持BeanPostProcessor、BeanFactoryPostProcessor的使用，
-		但两者之间的区别是：BeanFactory需要手动注册，而ApplicationContext则是自动注册。
+	但两者之间的区别是：BeanFactory需要手动注册，而ApplicationContext则是自动注册。
 
 
 
